@@ -14,6 +14,7 @@ import SectionWhyUs from '@/components/section-why-us'
 import { getStayCategories } from '@/data/categories'
 import { getBlogPosts } from '@/data/data'
 import { getStayListings } from '@/data/listings'
+import stayHeroImg from '@/images/hero-img-stay.webp'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Metadata } from 'next'
 import { absoluteUrl, createPageMetadata, GOOGLE_MAPS_URL, SITE_DESCRIPTION, SITE_EMAIL } from '@/lib/site-config'
@@ -94,7 +95,9 @@ async function Page() {
           }
           description="Comfortable stays, warm local hospitality and a peaceful base for exploring Northeast India."
           heroImg="/images/lovely-homestay/living-dining.webp"
+          desktopHeroImg={stayHeroImg.src}
           heroAlt="Living and dining area at Lovely Homestay in Guwahati"
+          heroImageClassName="object-top lg:object-center"
           cta={
             <Button color="white" href="/contact">
               Check availability
@@ -140,6 +143,30 @@ async function Page() {
       </section>
 
       <section className="container section-space">
+        <SectionWhyUs
+          heading={
+            <>
+              Why guests choose <span data-slot="italic">Lovely Homestay</span>
+            </>
+          }
+          description="Guests can enjoy a peaceful space, useful everyday amenities and a convenient Guwahati location with direct local assistance."
+          factContent={lovelyWhyUsFacts}
+          ctaHref="/contact"
+          ctaLabel="Contact Lovely Homestay"
+          trustMessage="Warm local hospitality in Guwahati"
+          galleryImages={[
+            { src: '/images/lovely-homestay/bedroom-main.webp', alt: 'Lovely Homestay main bedroom' },
+            { src: '/images/lovely-homestay/sofa-bed.webp', alt: 'Blue sofa bed at Lovely Homestay' },
+            { src: '/images/lovely-homestay/kitchen.webp', alt: 'Lovely Homestay kitchen' },
+            { src: '/images/lovely-homestay/living-dining.webp', alt: 'Lovely Homestay living and dining area' },
+            { src: '/images/lovely-homestay/bedroom-wide.webp', alt: 'Spacious bedroom at Lovely Homestay' },
+            { src: '/images/lovely-homestay/tv-area.webp', alt: 'TV area at Lovely Homestay' },
+            { src: '/images/lovely-homestay/bedroom-second.webp', alt: 'Second bedroom at Lovely Homestay' },
+          ]}
+        />
+      </section>
+
+      <section className="container section-space">
         <SectionGroupCategoriesCarousel groupCategories={destinationGroups} />
       </section>
 
@@ -167,30 +194,6 @@ async function Page() {
           stats={lovelyInformationStats}
           testimonials={lovelyInformationPanels}
           showReviewSource={false}
-        />
-      </section>
-
-      <section className="container section-space">
-        <SectionWhyUs
-          heading={
-            <>
-              Why guests choose <span data-slot="italic">Lovely Homestay</span>
-            </>
-          }
-          description="Guests can enjoy a peaceful space, useful everyday amenities and a convenient Guwahati location with direct local assistance."
-          factContent={lovelyWhyUsFacts}
-          ctaHref="/contact"
-          ctaLabel="Contact Lovely Homestay"
-          trustMessage="Warm local hospitality in Guwahati"
-          galleryImages={[
-            { src: '/images/lovely-homestay/bedroom-main.webp', alt: 'Lovely Homestay main bedroom' },
-            { src: '/images/lovely-homestay/sofa-bed.webp', alt: 'Blue sofa bed at Lovely Homestay' },
-            { src: '/images/lovely-homestay/kitchen.webp', alt: 'Lovely Homestay kitchen' },
-            { src: '/images/lovely-homestay/living-dining.webp', alt: 'Lovely Homestay living and dining area' },
-            { src: '/images/lovely-homestay/bedroom-wide.webp', alt: 'Spacious bedroom at Lovely Homestay' },
-            { src: '/images/lovely-homestay/tv-area.webp', alt: 'TV area at Lovely Homestay' },
-            { src: '/images/lovely-homestay/bedroom-second.webp', alt: 'Second bedroom at Lovely Homestay' },
-          ]}
         />
       </section>
 

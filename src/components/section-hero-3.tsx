@@ -35,7 +35,9 @@ interface HeroSection3Props {
   initTab?: ListingType
   title?: ReactNode
   heroImg?: string | StaticImageData
+  desktopHeroImg?: string
   heroAlt?: string
+  heroImageClassName?: string
   description?: ReactNode
   cta?: ReactNode
   showSearchForm?: boolean
@@ -52,7 +54,9 @@ const HeroSection3 = ({
     </>
   ),
   heroImg = stayHeroImg,
+  desktopHeroImg,
   heroAlt = '',
+  heroImageClassName = 'object-top',
   description,
   cta,
   showSearchForm = true,
@@ -67,14 +71,17 @@ const HeroSection3 = ({
       )}
     >
       <div className="absolute inset-0 overflow-hidden rounded-3xl">
-        <Image
-          src={heroImg}
-          alt={heroAlt}
-          className="rounded-3xl object-cover object-top"
-          fill
-          sizes="(max-width: 480px) 200vw, (max-width: 768px) 150vw, 120vw"
-          priority
-        />
+        <picture>
+          {desktopHeroImg && <source media="(min-width: 1024px)" srcSet={desktopHeroImg} />}
+          <Image
+            src={heroImg}
+            alt={heroAlt}
+            className={clsx('rounded-3xl object-cover', heroImageClassName)}
+            fill
+            sizes="(max-width: 480px) 200vw, (max-width: 768px) 150vw, 120vw"
+            priority
+          />
+        </picture>
       </div>
       <div className="absolute inset-0 rounded-3xl bg-linear-to-b from-sky-600 to-transparent opacity-30" />
 
