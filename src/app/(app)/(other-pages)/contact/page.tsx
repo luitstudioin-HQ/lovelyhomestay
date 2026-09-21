@@ -1,12 +1,8 @@
 import ButtonPrimary from '@/components/button-primary'
-import { Field, Label } from '@/components/fieldset'
 import { Heading } from '@/components/heading'
-import Input from '@/components/input'
 import NewsletterSection from '@/components/newsletter-section-1'
-import Textarea from '@/components/textarea'
-import { SentIcon } from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
 import { Metadata } from 'next'
+import ContactForm from './contact-form'
 
 const info = [
   {
@@ -44,26 +40,7 @@ const PageContact = () => {
               </ButtonPrimary>
             </div>
           </div>
-          <form className="grid grid-cols-1 gap-6" action="#" method="post">
-            <Field className="block">
-              <Label>Full name</Label>
-              <Input placeholder="Example Doe" type="text" className="mt-1" />
-            </Field>
-            <Field className="block">
-              <Label>Email address</Label>
-              <Input type="email" placeholder="example@example.com" className="mt-1" />
-            </Field>
-            <Field className="block">
-              <Label>Message</Label>
-              <Textarea className="mt-1" rows={6} />
-            </Field>
-            <div>
-              <ButtonPrimary type="submit">
-                Send Message
-                <HugeiconsIcon icon={SentIcon} size={16} />
-              </ButtonPrimary>
-            </div>
-          </form>
+          <ContactForm />
         </div>
       </div>
 

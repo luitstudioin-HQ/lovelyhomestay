@@ -32,7 +32,7 @@ import {
 export const metadata: Metadata = {
   title: 'Lovely Homestay in Guwahati, Assam',
   description:
-    'Discover a comfortable homestay in Guwahati and explore Assam with Lovely Homestay near Panjabari and Six Mile.',
+    'Discover a comfortable homestay in Guwahati and explore Assam with Lovely Homestay near Six Mile and VIP Road/Panjabari Road.',
 }
 
 async function Page() {
@@ -146,7 +146,15 @@ async function Page() {
           ctaHref="/contact"
           ctaLabel="Contact Lovely Homestay"
           trustMessage="Warm local hospitality in Guwahati"
-          imageUrl="https://images.pexels.com/photos/6130047/pexels-photo-6130047.jpeg"
+          galleryImages={[
+            { src: '/images/lovely-homestay/bedroom-main.webp', alt: 'Lovely Homestay main bedroom' },
+            { src: '/images/lovely-homestay/sofa-bed.webp', alt: 'Blue sofa bed at Lovely Homestay' },
+            { src: '/images/lovely-homestay/kitchen.webp', alt: 'Lovely Homestay kitchen' },
+            { src: '/images/lovely-homestay/living-dining.webp', alt: 'Lovely Homestay living and dining area' },
+            { src: '/images/lovely-homestay/bedroom-wide.webp', alt: 'Spacious bedroom at Lovely Homestay' },
+            { src: '/images/lovely-homestay/tv-area.webp', alt: 'TV area at Lovely Homestay' },
+            { src: '/images/lovely-homestay/bedroom-second.webp', alt: 'Second bedroom at Lovely Homestay' },
+          ]}
         />
       </section>
 

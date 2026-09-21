@@ -17,11 +17,11 @@ const comforts = [
   },
   {
     title: 'Everyday essentials',
-    description: 'Air-conditioned accommodation, free Wi-Fi and useful kitchen facilities for an easy stay.',
+    description: 'Free Wi-Fi, hot water and useful kitchen and kitchenette facilities for an easy stay.',
   },
   {
     title: 'Convenient location',
-    description: 'Located near Panjabari and Six Mile, with private parking and convenient access to the city.',
+    description: 'Located near Six Mile and VIP Road/Panjabari Road, with free parking and convenient access to the city.',
   },
 ]
 

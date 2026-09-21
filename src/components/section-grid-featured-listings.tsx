@@ -81,7 +81,9 @@ const FeaturedListingCard = ({ stay, priceSuffix, linkCard }: { stay: TStayListi
           </h2>
           {!!reviewStart && <StartRating reviewCount={reviewCount} point={reviewStart} />}
         </div>
-        <div className="mt-1 line-clamp-1 text-sm text-neutral-500 dark:text-neutral-400">{nameLocalized}</div>
+        <div className="mt-1 line-clamp-2 break-words text-sm text-neutral-500 dark:text-neutral-400">
+          {nameLocalized}
+        </div>
         <AmenitiesChips data={amenities} className="mt-3.5" />
         <div className="mt-6 flex items-center justify-between">
           <span>

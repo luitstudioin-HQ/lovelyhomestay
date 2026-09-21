@@ -22,6 +22,7 @@ interface SectionWhyUsProps {
   ctaLabel?: string
   trustMessage?: string
   imageUrl?: string
+  galleryImages?: { src: string; alt: string }[]
 }
 
 const users = [
@@ -75,8 +76,10 @@ const SectionWhyUs: FC<SectionWhyUsProps> = ({
   ctaLabel = 'Become a host',
   trustMessage,
   imageUrl = 'https://images.pexels.com/photos/7891883/pexels-photo-7891883.jpeg',
+  galleryImages,
 }) => {
   const displayedFacts = facts.map((fact, index) => ({ ...fact, ...factContent?.[index] }))
+  const bentoImages = galleryImages?.slice(0, 7)
 
   return (
     <div className="relative flex flex-col gap-8 overflow-hidden sm:gap-20 lg:flex-row">
@@ -108,31 +111,55 @@ const SectionWhyUs: FC<SectionWhyUsProps> = ({
 
       <div className="flex-1">
         <div className="relative aspect-6/7 sm:aspect-7/6 lg:aspect-6/7 xl:aspect-square">
-          <Image
-            src={imageUrl}
-            alt={''}
-            priority
-            fill
-            className="z-0 rounded-2xl object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
-
-          <div className="absolute inset-x-3 bottom-3 flex flex-col rounded-2xl lg:bottom-14 lg:-left-16 xl:-left-20">
-            {displayedFacts.map((fact) => (
-              <div
-                key={fact.title}
-                className={`${fact.mlClass} mt-2.5 max-w-72 rounded-2xl bg-white p-3 shadow-lg sm:mt-7 sm:p-5 dark:bg-neutral-800`}
-              >
-                <div className="flex items-center justify-between gap-5">
-                  <div>
-                    <Text className="font-medium">{fact.title}</Text>
-                    <Text className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">{fact.description}</Text>
-                  </div>
-                  <HugeiconsIcon icon={fact.icon} size={32} />
+          {bentoImages?.length === 7 ? (
+            <div className="absolute inset-0 grid grid-cols-6 grid-rows-3 gap-2 overflow-hidden rounded-2xl bg-neutral-100 p-2 dark:bg-neutral-800">
+              {bentoImages.map((image, index) => (
+                <div
+                  key={image.src}
+                  className={`relative overflow-hidden rounded-xl ${index < 4 ? 'col-span-3' : 'col-span-2'}`}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    priority={index < 2}
+                    fill
+                    className="object-cover transition-transform duration-500 hover:scale-105"
+                    sizes={index < 4 ? '(max-width: 768px) 50vw, 25vw' : '(max-width: 768px) 33vw, 17vw'}
+                  />
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <Image
+              src={imageUrl}
+              alt=""
+              priority
+              fill
+              className="z-0 rounded-2xl object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          )}
+
+          {!bentoImages?.length && (
+            <div className="absolute inset-x-3 bottom-3 flex flex-col rounded-2xl lg:bottom-14 lg:-left-16 xl:-left-20">
+              {displayedFacts.map((fact) => (
+                <div
+                  key={fact.title}
+                  className={`${fact.mlClass} mt-2.5 max-w-72 rounded-2xl bg-white p-3 shadow-lg sm:mt-7 sm:p-5 dark:bg-neutral-800`}
+                >
+                  <div className="flex items-center justify-between gap-5">
+                    <div>
+                      <Text className="font-medium">{fact.title}</Text>
+                      <Text className="mt-0.5 text-sm text-neutral-500 dark:text-neutral-400">
+                        {fact.description}
+                      </Text>
+                    </div>
+                    <HugeiconsIcon icon={fact.icon} size={32} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: '%s | Lovely Homestay',
     default: 'Lovely Homestay | Guwahati, Assam',
   },
-  description: 'A comfortable and welcoming homestay near Panjabari and Six Mile in Guwahati, Assam.',
+  description: 'A comfortable and welcoming homestay near Six Mile and VIP Road/Panjabari Road in Guwahati, Assam.',
   keywords: ['Lovely Homestay', 'Guwahati homestay', 'Assam accommodation', 'Six Mile', 'Panjabari'],
 }
 

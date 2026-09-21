@@ -4,6 +4,30 @@ import airlineLogo2 from '@/images/flights/logo2.png'
 import airlineLogo3 from '@/images/flights/logo3.png'
 import airlineLogo4 from '@/images/flights/logo4.png'
 
+export const lovelyHomestayFeaturedAmenities = [
+  { icon: 'Wifi01Icon', text: 'Wi-Fi' },
+  { icon: 'CarParking01Icon', text: 'Free parking' },
+  { icon: 'KitchenUtensilsIcon', text: 'Kitchen' },
+  { icon: 'CheckmarkCircle02Icon', text: 'Hot water' },
+]
+
+export const lovelyHomestayFullAmenities = [
+  { icon: 'ShoppingBag02Icon', text: 'Clothing storage' },
+  { icon: 'ChefHatIcon', text: 'Cooking basics' },
+  { icon: 'LaptopIcon', text: 'Dedicated workspace' },
+  { icon: 'KitchenUtensilsIcon', text: 'Dining table' },
+  { icon: 'FireExtinguisherIcon', text: 'Fire extinguisher' },
+  { icon: 'CarParking01Icon', text: 'Free parking on premises' },
+  { icon: 'CheckmarkCircle02Icon', text: 'Hot water' },
+  { icon: 'KitchenUtensilsIcon', text: 'Hot water kettle' },
+  { icon: 'KitchenUtensilsIcon', text: 'Kitchen' },
+  { icon: 'KitchenUtensilsIcon', text: 'Kitchenette' },
+  { icon: 'KitchenUtensilsIcon', text: 'Refrigerator' },
+  { icon: 'KitchenUtensilsIcon', text: 'Toaster' },
+  { icon: 'Tv01Icon', text: 'TV / Fire TV' },
+  { icon: 'Wifi01Icon', text: 'Wi-Fi' },
+]
+
 //  STAY LISTING  //
 export async function getStayListings() {
   return [
@@ -357,6 +381,7 @@ export const getStayListingByHandle = async (handle: string) => {
 
   return {
     ...(listing || {}),
+    amenities: lovelyHomestayFeaturedAmenities,
     description:
       'Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.',
     listingCategory: 'Cottage',
@@ -396,35 +421,7 @@ export const getStayListingByHandle = async (handle: string) => {
       isVerified: true,
       joinedDate: 'March 2024',
     },
-    fullAmenities: [
-      { icon: 'Wifi01Icon', text: 'Free wifi' },
-      { icon: 'CarParking01Icon', text: 'Free parking' },
-      { icon: 'KitchenUtensilsIcon', text: 'Kitchen' },
-      { icon: 'Beach02FreeIcons', text: 'Beachfront' },
-      { icon: 'SlowWindsIcon', text: 'Air conditioning' },
-      { icon: 'DishWasherIcon', text: 'Washer' },
-      { icon: 'DryerIcon', text: 'Dryer' },
-      { icon: 'Tv01Icon', text: 'TV' },
-      { icon: 'FirewallIcon', text: 'Fireplace' },
-      { icon: 'PoolIcon', text: 'Pool' },
-      { icon: 'Dumbbell02Icon', text: 'Gym' },
-      { icon: 'HairClipsIcon', text: 'Spa' },
-      { icon: 'NoodlesIcon', text: 'Breakfast' },
-      { icon: 'HairDryerIcon', text: 'Hair dryer' },
-      { icon: 'LaptopIcon', text: 'Laptop friendly workspace' },
-      { icon: 'Alien02Icon', text: 'Pets allowed' },
-      { icon: 'SmokingIcon', text: 'Smoking allowed' },
-      { icon: 'PinLocation03Icon', text: 'City center' },
-      { icon: 'WheelchairIcon', text: 'Wheelchair accessible' },
-      { icon: 'PoolTableIcon', text: 'Pool table' },
-      { icon: 'WindTurbineIcon', text: 'Wind turbine' },
-      { icon: 'HandSanitizerIcon', text: 'Hand sanitizer' },
-      { icon: 'AiGameIcon', text: 'Game console' },
-      { icon: 'BedSingle02Icon', text: '5 beds' },
-      { icon: 'AlarmSmokeIcon', text: 'Smoke detector' },
-      { icon: 'AmpouleIcon', text: 'Carbon monoxide detector' },
-      { icon: 'Astronaut01Icon', text: 'Fire extinguisher' },
-    ],
+    fullAmenities: lovelyHomestayFullAmenities,
   }
 }
 export type TStayListing = Awaited<ReturnType<typeof getStayListings>>[number]

@@ -1,6 +1,6 @@
 import { TCategory } from '@/data/categories'
 import { TBlogPost } from '@/data/data'
-import { TStayListing } from '@/data/listings'
+import { lovelyHomestayFeaturedAmenities, TStayListing } from '@/data/listings'
 
 export const googleMapsUrl = 'https://maps.app.goo.gl/sPNUnzCjtkEtrJ7x6'
 
@@ -8,7 +8,7 @@ export const lovelyStayHighlights = [
   'Warm local hospitality',
   'Comfortable rooms',
   'Free Wi-Fi',
-  'Private parking',
+  'Free parking',
   'Guwahati, Assam',
 ]
 
@@ -27,41 +27,36 @@ export const featuredStayOverrides: Partial<TStayListing>[] = [
   {
     title: 'Lovely Homestay',
     badge: 'Homestay',
-    address: 'Six Mile, Guwahati',
-    nameLocalized: 'A comfortable stay near Panjabari and Six Mile',
+    address: 'Six Mile and VIP Road/Panjabari Road, Guwahati',
+    nameLocalized: 'A comfortable stay near Six Mile and VIP Road/Panjabari Road',
     price: 'Enquire',
     reviewStart: 0,
     reviewCount: 0,
     featuredImage: 'https://images.pexels.com/photos/6130047/pexels-photo-6130047.jpeg',
-    amenities: [
-      { icon: 'Wifi01Icon', text: 'Free Wi-Fi' },
-      { icon: 'CarParking01Icon', text: 'Private parking' },
-      { icon: 'SlowWindsIcon', text: 'Air conditioning' },
-      { icon: 'KitchenUtensilsIcon', text: 'Kitchen' },
-    ],
+    amenities: lovelyHomestayFeaturedAmenities,
   },
 ]
 
 const destinationDetails = [
-  ['Guwahati', 'Gateway to Assam', 'https://images.pexels.com/photos/17843647/pexels-photo-17843647.jpeg'],
-  ['Shillong', 'Hills', 'https://images.pexels.com/photos/10029346/pexels-photo-10029346.jpeg'],
-  ['Kaziranga', 'Wildlife', 'https://images.pexels.com/photos/35565937/pexels-photo-35565937.jpeg'],
-  ['Majuli', 'Culture', 'https://images.pexels.com/photos/6064824/pexels-photo-6064824.jpeg'],
-  ['Sivasagar', 'Heritage', 'https://images.pexels.com/photos/15678073/pexels-photo-15678073.jpeg'],
-  ['Tezpur', 'Nature', 'https://images.pexels.com/photos/10348767/pexels-photo-10348767.jpeg'],
-  ['Manas', 'Wildlife', 'https://images.pexels.com/photos/30542345/pexels-photo-30542345.jpeg'],
-  ['Haflong', 'Hills', 'https://images.pexels.com/photos/10101268/pexels-photo-10101268.jpeg'],
+  ['Guwahati', 'Gateway to Assam', '/images/destinations/guwahati.webp'],
+  ['Shillong', 'Hills', '/images/destinations/shillong.webp'],
+  ['Kaziranga', 'Wildlife', '/images/destinations/kaziranga.webp'],
+  ['Majuli', 'Culture', '/images/destinations/majuli.webp'],
+  ['Sivasagar', 'Heritage', '/images/destinations/sivasagar.webp'],
+  ['Tezpur', 'Nature', '/images/destinations/tezpur.webp'],
+  ['Manas', 'Wildlife', '/images/destinations/manas.webp'],
+  ['Haflong', 'Hills', '/images/destinations/haflong.webp'],
 ] as const
 
 const nearbyDetails = [
-  ['Uzan Bazaar', 'Close to attractions'],
-  ['Pan Bazaar', 'Great for city stays'],
-  ['Zoo Road', 'Popular area'],
-  ['Six Mile', 'Near Lovely Homestay'],
-  ['Beltola', 'Local favourite'],
-  ['Khanapara', 'Convenient location'],
-  ['Paltan Bazaar', 'Well connected'],
-  ['Jalukbari', 'Gateway to the city'],
+  ['Uzan Bazaar', 'Close to attractions', '/images/neighbourhoods/uzan-bazaar.webp'],
+  ['Pan Bazaar', 'Great for city stays', '/images/neighbourhoods/pan-bazaar.webp'],
+  ['Zoo Road', 'Popular area', '/images/neighbourhoods/zoo-road.webp'],
+  ['Six Mile', 'Near Lovely Homestay', '/images/neighbourhoods/six-mile.webp'],
+  ['Beltola', 'Local favourite', '/images/neighbourhoods/beltola.webp'],
+  ['Khanapara', 'Convenient location', '/images/neighbourhoods/khanapara.webp'],
+  ['Paltan Bazaar', 'Well connected', '/images/neighbourhoods/paltan-bazaar.webp'],
+  ['Jalukbari', 'Gateway to the city', '/images/neighbourhoods/jalukbari.webp'],
 ] as const
 
 export function createLovelyStayPageData(baseCategories: TCategory[]) {
@@ -79,7 +74,7 @@ export function createLovelyStayPageData(baseCategories: TCategory[]) {
     description: `Discover ${name} from a comfortable base in Northeast India.`,
   }))
 
-  const nearby = nearbyDetails.map(([name, countLabel], index) => ({
+  const nearby = nearbyDetails.map(([name, countLabel, thumbnail], index) => ({
     ...baseCategories[index % baseCategories.length],
     id: `lovely-nearby://${index + 1}`,
     name,
@@ -90,7 +85,7 @@ export function createLovelyStayPageData(baseCategories: TCategory[]) {
     href: googleMapsUrl,
     count: 0,
     countLabel,
-    thumbnail: destinations[index].thumbnail,
+    thumbnail,
     description: `${name} is a useful base for exploring Guwahati.`,
   }))
 
@@ -121,12 +116,12 @@ export const lovelyStayFaqs = [
   {
     question: 'Where is Lovely Homestay located?',
     answer:
-      'Lovely Homestay is near Panjabari and Six Mile in Guwahati, Assam. You can open the exact location from our Google Maps link.',
+      'Lovely Homestay is near Six Mile and VIP Road/Panjabari Road in Guwahati, Assam. You can open the exact location from our Google Maps link.',
   },
   {
     question: 'What amenities are available?',
     answer:
-      'The stay includes useful everyday comforts such as free Wi-Fi, air conditioning, private parking and kitchen facilities.',
+      'The stay includes essential comforts such as free Wi-Fi, free parking, kitchen and kitchenette facilities, a refrigerator, hot water, hot water kettle, TV with Fire TV, dedicated workspace, dining table and basic cooking essentials.',
   },
   {
     question: 'How can I check availability?',
@@ -136,7 +131,7 @@ export const lovelyStayFaqs = [
   {
     question: 'Can I find stays near Guwahati attractions?',
     answer:
-      'Lovely Homestay is near Panjabari and Six Mile. Contact us with the places you plan to visit and we can help with local location context.',
+      'Lovely Homestay is near Six Mile and VIP Road/Panjabari Road. Contact us with the places you plan to visit and we can help with local location context.',
   },
   {
     question: 'What is the cancellation policy?',
@@ -177,7 +172,7 @@ export const lovelyInformationPanels = [
 export const lovelyWhyUsFacts = [
   { title: 'Comfortable spaces', description: 'A peaceful setting with everyday essentials' },
   { title: 'Local hospitality', description: 'A warm welcome and direct assistance' },
-  { title: 'Convenient location', description: 'Near Panjabari and Six Mile in Guwahati' },
+  { title: 'Convenient location', description: 'Near Six Mile and VIP Road/Panjabari Road in Guwahati' },
 ]
 
 export const lovelyFaqFacts = [
