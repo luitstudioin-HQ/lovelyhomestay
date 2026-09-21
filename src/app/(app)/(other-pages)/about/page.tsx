@@ -2,13 +2,16 @@ import { Button } from '@/components/button'
 import { Heading } from '@/components/heading'
 import { ArrowRightIcon, MapPinIcon } from '@heroicons/react/24/outline'
 import { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/site-config'
 
 const googleMapsUrl = 'https://maps.app.goo.gl/sPNUnzCjtkEtrJ7x6'
 
-export const metadata: Metadata = {
-  title: 'About Lovely Homestay',
-  description: 'Learn about Lovely Homestay, a welcoming and comfortable place to stay in Guwahati, Assam.',
-}
+export const metadata: Metadata = createPageMetadata({
+  title: 'About Lovely Homestay | Guwahati, Assam',
+  description:
+    'Learn about Lovely Homestay near Six Mile and Panjabari Road, a comfortable local stay with practical amenities in Guwahati, Assam.',
+  path: '/about',
+})
 
 const comforts = [
   {

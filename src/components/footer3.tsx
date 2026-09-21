@@ -6,6 +6,8 @@ const links = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
   { name: 'Contact Us', href: '/contact' },
+  { name: 'Privacy Policy', href: '/privacy-policy' },
+  { name: 'Terms & Conditions', href: '/terms-and-conditions' },
 ]
 
 export default function Footer3() {

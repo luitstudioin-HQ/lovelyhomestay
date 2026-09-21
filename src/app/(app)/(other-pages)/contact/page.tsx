@@ -2,6 +2,7 @@ import ButtonPrimary from '@/components/button-primary'
 import { Heading } from '@/components/heading'
 import NewsletterSection from '@/components/newsletter-section-1'
 import { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/site-config'
 import ContactForm from './contact-form'
 
 const info = [
@@ -14,10 +15,12 @@ const info = [
 
 const googleMapsUrl = 'https://maps.app.goo.gl/sPNUnzCjtkEtrJ7x6'
 
-export const metadata: Metadata = {
-  title: 'Contact Lovely Homestay',
-  description: 'Contact Lovely Homestay in Guwahati, Assam.',
-}
+export const metadata: Metadata = createPageMetadata({
+  title: 'Contact Lovely Homestay | Guwahati, Assam',
+  description:
+    'Contact Lovely Homestay in Guwahati to ask about accommodation availability near Six Mile and VIP Road/Panjabari Road.',
+  path: '/contact',
+})
 
 const PageContact = () => {
   return (

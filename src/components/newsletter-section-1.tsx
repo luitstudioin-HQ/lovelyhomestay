@@ -26,7 +26,7 @@ export default function NewsletterSection({
   return (
     <div className={className}>
       <div className="relative overflow-hidden rounded-2xl p-4 md:p-10 lg:p-14">
-        <Image src={newsletterSectionBg} className="-z-10 object-cover" fill sizes="100vw" alt="cover" />
+        <Image src={newsletterSectionBg} className="-z-10 object-cover" fill sizes="100vw" alt="" />
         <div className="absolute inset-0 -z-10 bg-linear-to-b from-white/20 to-transparent"></div>
 
         <div className="flex flex-col justify-between gap-24 text-neutral-900 lg:gap-40 xl:gap-60">
@@ -57,7 +57,7 @@ export default function NewsletterSection({
             <div className="mt-4 pl-1.5">
               {note ? <Text className="text-xs">{note}</Text> : <Text className="text-xs">
                 We care about your data. Read our{' '}
-                <Link href="#" className="underline">
+                <Link href="/privacy-policy" className="underline">
                   privacy&nbsp;policy
                 </Link>
                 .

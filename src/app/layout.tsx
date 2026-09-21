@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@/components/theme-provider'
 import { DirectionProvider } from '@/components/ui/direction'
 import { cn } from '@/lib/utils'
+import { SITE_DESCRIPTION, SITE_IMAGE, SITE_NAME, SITE_URL } from '@/lib/site-config'
 import '@/styles/tailwind.css'
 import clsx from 'clsx'
 import { Metadata } from 'next'
@@ -23,12 +24,40 @@ const playfair_display = Playfair_Display({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     template: '%s | Lovely Homestay',
-    default: 'Lovely Homestay | Guwahati, Assam',
+    default: 'Lovely Homestay | Comfortable Stay in Guwahati, Assam',
   },
-  description: 'A comfortable and welcoming homestay near Six Mile and VIP Road/Panjabari Road in Guwahati, Assam.',
-  keywords: ['Lovely Homestay', 'Guwahati homestay', 'Assam accommodation', 'Six Mile', 'Panjabari'],
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    'homestay in Guwahati',
+    'homestay near Six Mile Guwahati',
+    'homestay near VIP Road Guwahati',
+    'homestay near Panjabari Road Guwahati',
+    'accommodation in Guwahati',
+  ],
+  openGraph: {
+    title: 'Lovely Homestay | Comfortable Stay in Guwahati, Assam',
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: 'en_IN',
+    type: 'website',
+    images: [{ url: SITE_IMAGE, alt: 'Bedroom at Lovely Homestay in Guwahati' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Lovely Homestay | Comfortable Stay in Guwahati, Assam',
+    description: SITE_DESCRIPTION,
+    images: [SITE_IMAGE],
+  },
+  robots: { index: true, follow: true },
+  icons: { icon: '/icon.ico', shortcut: '/icon.ico' },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -1,12 +1,9 @@
 import type { MetadataRoute } from 'next'
+import { SITE_URL } from '@/lib/site-config'
 
-// Preview/portfolio deploy — no SEO needed. Blocking crawlers is the single
-// biggest lever on Vercel Edge Requests / Function Invocations.
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: '*',
-      disallow: '/',
-    },
+    rules: { userAgent: '*', allow: '/' },
+    sitemap: `${SITE_URL}/sitemap.xml`,
   }
 }

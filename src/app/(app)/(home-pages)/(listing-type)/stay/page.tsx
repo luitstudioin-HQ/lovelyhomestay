@@ -16,6 +16,7 @@ import { getBlogPosts } from '@/data/data'
 import { getStayListings } from '@/data/listings'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Metadata } from 'next'
+import { absoluteUrl, createPageMetadata, GOOGLE_MAPS_URL, SITE_DESCRIPTION, SITE_EMAIL } from '@/lib/site-config'
 import {
   createLovelyStayPageData,
   featuredStayOverrides,
@@ -29,10 +30,39 @@ import {
   travelGuideOverrides,
 } from './data'
 
-export const metadata: Metadata = {
-  title: 'Lovely Homestay in Guwahati, Assam',
-  description:
-    'Discover a comfortable homestay in Guwahati and explore Assam with Lovely Homestay near Six Mile and VIP Road/Panjabari Road.',
+export const metadata: Metadata = createPageMetadata({
+  title: 'Lovely Homestay | Comfortable Stay in Guwahati, Assam',
+  description: SITE_DESCRIPTION,
+  path: '/',
+})
+
+const lodgingBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LodgingBusiness',
+  name: 'Lovely Homestay',
+  description: SITE_DESCRIPTION,
+  url: absoluteUrl('/'),
+  image: [
+    absoluteUrl('/images/lovely-homestay/bedroom-main.webp'),
+    absoluteUrl('/images/lovely-homestay/living-dining.webp'),
+    absoluteUrl('/images/lovely-homestay/kitchen.webp'),
+  ],
+  email: SITE_EMAIL,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'House No. 3, Jana Path, Bye Lane 17, F.A. Ahmed Nagar, Panjabari Road, Six Mile',
+    addressLocality: 'Guwahati',
+    addressRegion: 'Assam',
+    postalCode: '781022',
+    addressCountry: 'IN',
+  },
+  amenityFeature: [
+    { '@type': 'LocationFeatureSpecification', name: 'Wi-Fi', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Parking', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Kitchen facilities', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Hot water', value: true },
+  ],
+  sameAs: [GOOGLE_MAPS_URL],
 }
 
 async function Page() {
@@ -51,6 +81,10 @@ async function Page() {
 
   return (
     <main className="relative section-space-bottom">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingBusinessJsonLd).replace(/</g, '\\u003c') }}
+      />
       <section className="px-4">
         <HeroSection3
           title={
@@ -59,6 +93,8 @@ async function Page() {
             </>
           }
           description="Comfortable stays, warm local hospitality and a peaceful base for exploring Northeast India."
+          heroImg="/images/lovely-homestay/living-dining.webp"
+          heroAlt="Living and dining area at Lovely Homestay in Guwahati"
           cta={
             <Button color="white" href="/contact">
               Check availability

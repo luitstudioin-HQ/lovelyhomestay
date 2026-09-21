@@ -35,6 +35,7 @@ interface HeroSection3Props {
   initTab?: ListingType
   title?: ReactNode
   heroImg?: string | StaticImageData
+  heroAlt?: string
   description?: ReactNode
   cta?: ReactNode
   showSearchForm?: boolean
@@ -51,6 +52,7 @@ const HeroSection3 = ({
     </>
   ),
   heroImg = stayHeroImg,
+  heroAlt = '',
   description,
   cta,
   showSearchForm = true,
@@ -67,7 +69,7 @@ const HeroSection3 = ({
       <div className="absolute inset-0 overflow-hidden rounded-3xl">
         <Image
           src={heroImg}
-          alt="hero"
+          alt={heroAlt}
           className="rounded-3xl object-cover object-top"
           fill
           sizes="(max-width: 480px) 200vw, (max-width: 768px) 150vw, 120vw"
