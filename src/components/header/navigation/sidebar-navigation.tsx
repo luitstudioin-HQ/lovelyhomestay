@@ -4,8 +4,7 @@ import { Divider } from '@/components/divider'
 import { Link } from '@/components/link'
 import SwitchDarkMode2 from '@/components/switch-dark-mode2'
 import { Text } from '@/components/text'
-import { Disclosure, DisclosureButton, DisclosurePanel, useClose } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/24/solid'
+import { useClose } from '@headlessui/react'
 import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -18,8 +17,6 @@ const MAIN_NAVIGATION = [
   { label: 'About Us', href: '/about' },
   { label: 'Contact Us', href: '/contact' },
 ] as const
-
-const ASSAM_DESTINATIONS = ['Guwahati', 'Kaziranga', 'Majuli', 'Sivasagar', 'Tezpur', 'Manas', 'Haflong', 'Shillong']
 
 const SidebarNavigation: React.FC<Props> = () => {
   const handleClose = useClose()
@@ -54,41 +51,6 @@ const SidebarNavigation: React.FC<Props> = () => {
               </li>
             )
           })}
-
-          <Disclosure as="li">
-            {({ open }) => (
-              <>
-                <DisclosureButton className="flex min-h-12 w-full cursor-pointer items-center justify-between rounded-xl px-4 text-start text-base font-medium text-foreground transition-colors hover:bg-accent/70">
-                  Explore Assam
-                  <ChevronDownIcon
-                    className={clsx(
-                      'size-4 text-muted-foreground transition-transform duration-200',
-                      open && 'rotate-180'
-                    )}
-                    aria-hidden="true"
-                  />
-                </DisclosureButton>
-                <DisclosurePanel
-                  transition
-                  className="origin-top overflow-hidden transition duration-200 ease-out data-closed:-translate-y-1 data-closed:opacity-0"
-                >
-                  <ul className="mt-1 grid grid-cols-2 gap-1 border-t border-border px-2 pt-2 pb-1">
-                    {ASSAM_DESTINATIONS.map((destination) => (
-                      <li key={destination}>
-                        <Link
-                          href={`/stay-search?location=${encodeURIComponent(destination)}`}
-                          onClick={handleClose}
-                          className="flex min-h-11 items-center rounded-lg px-3 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                        >
-                          {destination}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </DisclosurePanel>
-              </>
-            )}
-          </Disclosure>
 
           {MAIN_NAVIGATION.slice(2).map((item) => {
             const isActive = pathname === item.href

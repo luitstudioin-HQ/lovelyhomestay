@@ -18,6 +18,7 @@ import stayHeroImg from '@/images/hero-img-stay.webp'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Metadata } from 'next'
 import { absoluteUrl, createPageMetadata, GOOGLE_MAPS_URL, SITE_DESCRIPTION, SITE_EMAIL } from '@/lib/site-config'
+import { getHomepageSections, getVisibleAmenities, getVisibleFAQs, getVisibleGalleryImages, getPublishedRooms } from '@/lib/cms/content'
 import {
   createLovelyStayPageData,
   featuredStayOverrides,
@@ -66,8 +67,50 @@ const lodgingBusinessJsonLd = {
   sameAs: [GOOGLE_MAPS_URL],
 }
 
+type HomepageSectionContent = {
+  heading?: string
+  description?: string
+  buttonText?: string
+  buttonUrl?: string
+  image?: string
+}
+
+function getValidCmsImage(value: unknown) {
+  if (typeof value !== 'string') return null
+  const image = value.trim()
+  if (image.startsWith('/') && !image.startsWith('//')) return image
+  try {
+    const url = new URL(image)
+    return url.protocol === 'https:' || url.protocol === 'http:' ? image : null
+  } catch {
+    return null
+  }
+}
+
 async function Page() {
+  const cmsSections = await getHomepageSections()
+  const [cmsFaqs, cmsGallery, cmsAmenities, cmsRooms] = await Promise.all([getVisibleFAQs(), getVisibleGalleryImages(), getVisibleAmenities(), getPublishedRooms()])
+  const getSectionContent = (sectionType: string) => (cmsSections.find((section) => section.section_type === sectionType)?.content ?? {}) as HomepageSectionContent
+  const heroContent = getSectionContent('hero')
+  const aboutContent = getSectionContent('about')
+  const highlightsContent = getSectionContent('highlights')
+  const ctaContent = getSectionContent('cta')
+  const cmsHeroImage = getValidCmsImage(heroContent.image)
+  const galleryImages = cmsGallery.length > 0
+    ? cmsGallery.map((image) => ({ src: image.public_url ?? image.storage_path, alt: image.alt_text ?? 'Lovely Homestay gallery image' })).filter((image) => Boolean(image.src))
+    : [
+        { src: '/images/lovely-homestay/bedroom-main.webp', alt: 'Lovely Homestay main bedroom' },
+        { src: '/images/lovely-homestay/sofa-bed.webp', alt: 'Blue sofa bed at Lovely Homestay' },
+        { src: '/images/lovely-homestay/kitchen.webp', alt: 'Lovely Homestay kitchen' },
+        { src: '/images/lovely-homestay/living-dining.webp', alt: 'Lovely Homestay living and dining area' },
+      ]
+  const homepageFaqs = cmsFaqs.length > 0 ? cmsFaqs.map(({ question, answer }) => ({ question, answer })) : lovelyStayFaqs
+  const amenityFacts = cmsAmenities.length > 0 ? cmsAmenities.map((amenity) => ({ title: amenity.name, description: amenity.description ?? '' })) : lovelyWhyUsFacts
   const baseListings = await getStayListings()
+  const cmsFeaturedStays = cmsRooms.filter((room) => room.name && room.featured_image).map((room, index) => ({
+    ...baseListings[index % baseListings.length], id: room.id, title: room.name, handle: room.slug, nameLocalized: room.description ?? room.name,
+    price: room.price ?? 'Enquire', featuredImage: room.featured_image!, galleryImgs: [room.featured_image!], amenities: [], reviewStart: 0, reviewCount: 0,
+  }))
   const baseCategories = await getStayCategories()
   const basePosts = await getBlogPosts()
   const featuredStays = baseListings.slice(0, featuredStayOverrides.length).map((listing, index) => ({
@@ -90,17 +133,17 @@ async function Page() {
         <HeroSection3
           title={
             <>
-              Feel at home while discovering <span data-slot="italic">Guwahati and Assam.</span>
+              {heroContent.heading ?? 'Feel at home while discovering Guwahati and Assam.'}
             </>
           }
-          description="Comfortable stays, warm local hospitality and a peaceful base for exploring Northeast India."
-          heroImg="/images/lovely-homestay/living-dining.webp"
-          desktopHeroImg={stayHeroImg.src}
+          description={heroContent.description ?? 'Comfortable stays, warm local hospitality and a peaceful base for exploring Northeast India.'}
+          heroImg={cmsHeroImage ?? '/images/lovely-homestay/living-dining.webp'}
+          desktopHeroImg={cmsHeroImage ?? stayHeroImg.src}
           heroAlt="Living and dining area at Lovely Homestay in Guwahati"
           heroImageClassName="object-top lg:object-center"
           cta={
-            <Button color="white" href="/contact">
-              Check availability
+            <Button color="white" href={heroContent.buttonUrl ?? '/contact'}>
+              {heroContent.buttonText ?? 'Check availability'}
               <ArrowRightIcon className="size-4! rtl:rotate-180" />
             </Button>
           }
@@ -116,7 +159,7 @@ async function Page() {
       <section className="container section-space">
         <InspirationFutureGetawaysSection
           heading={
-            <>
+            aboutContent.heading ?? <>
               Find the right stay for your <span data-slot="italic">Guwahati visit</span>
             </>
           }
@@ -126,7 +169,7 @@ async function Page() {
 
       <section className="container section-space">
         <SectionGridFeaturedListings
-          stayListings={featuredStays}
+          stayListings={cmsFeaturedStays.length > 0 ? cmsFeaturedStays : featuredStays}
           heading={
             <>
               Featured stays <span data-slot="italic">in Guwahati</span>
@@ -150,19 +193,11 @@ async function Page() {
             </>
           }
           description="Guests can enjoy a peaceful space, useful everyday amenities and a convenient Guwahati location with direct local assistance."
-          factContent={lovelyWhyUsFacts}
+          factContent={amenityFacts}
           ctaHref="/contact"
           ctaLabel="Contact Lovely Homestay"
           trustMessage="Warm local hospitality in Guwahati"
-          galleryImages={[
-            { src: '/images/lovely-homestay/bedroom-main.webp', alt: 'Lovely Homestay main bedroom' },
-            { src: '/images/lovely-homestay/sofa-bed.webp', alt: 'Blue sofa bed at Lovely Homestay' },
-            { src: '/images/lovely-homestay/kitchen.webp', alt: 'Lovely Homestay kitchen' },
-            { src: '/images/lovely-homestay/living-dining.webp', alt: 'Lovely Homestay living and dining area' },
-            { src: '/images/lovely-homestay/bedroom-wide.webp', alt: 'Spacious bedroom at Lovely Homestay' },
-            { src: '/images/lovely-homestay/tv-area.webp', alt: 'TV area at Lovely Homestay' },
-            { src: '/images/lovely-homestay/bedroom-second.webp', alt: 'Second bedroom at Lovely Homestay' },
-          ]}
+          galleryImages={galleryImages}
         />
       </section>
 
@@ -186,11 +221,11 @@ async function Page() {
       <section className="container section-space">
         <SectionInterestingInfor
           heading={
-            <>
+            highlightsContent.heading ?? <>
               Some interesting things about <span data-slot="italic">Lovely Homestay</span>
             </>
           }
-          description="A comfortable local base in Guwahati, created for guests who want practical amenities, warm hospitality and easy access to Assam."
+          description={highlightsContent.description ?? 'A comfortable local base in Guwahati, created for guests who want practical amenities, warm hospitality and easy access to Assam.'}
           stats={lovelyInformationStats}
           testimonials={lovelyInformationPanels}
           showReviewSource={false}
@@ -205,7 +240,7 @@ async function Page() {
               Frequently asked <span data-slot="italic">questions</span>
             </>
           }
-          faqs={lovelyStayFaqs}
+          faqs={homepageFaqs}
           imageUrl="https://images.pexels.com/photos/10348767/pexels-photo-10348767.jpeg"
           factContent={lovelyFaqFacts}
         />
@@ -229,11 +264,11 @@ async function Page() {
       <section className="container py-12 lg:py-16">
         <NewsletterSection
           heading={
-            <>
+            ctaContent.heading ?? <>
               Discover stays, stories & places <span data-slot="italic">worth visiting.</span>
             </>
           }
-          note="Get occasional updates and local travel inspiration from Lovely Homestay."
+          note={ctaContent.description ?? 'Get occasional updates and local travel inspiration from Lovely Homestay.'}
         />
       </section>
     </main>

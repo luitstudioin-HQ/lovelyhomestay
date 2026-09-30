@@ -6,26 +6,27 @@ import Input from '@/components/input'
 import Textarea from '@/components/textarea'
 import { SentIcon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { FormEvent } from 'react'
-
-const recipientEmail = 'nazuneog@gmail.com'
+import { useActionState, useEffect, useRef } from 'react'
+import { initialContactSubmissionState, submitContactSubmission } from './actions'
 
 const ContactForm = () => {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const formRef = useRef<HTMLFormElement>(null)
+  const [state, formAction, isPending] = useActionState(submitContactSubmission, initialContactSubmissionState)
 
-    const formData = new FormData(event.currentTarget)
-    const name = String(formData.get('name') ?? '').trim()
-    const email = String(formData.get('email') ?? '').trim()
-    const message = String(formData.get('message') ?? '').trim()
-    const subject = 'New Enquiry - Lovely Homestay'
-    const body = `Visitor name: ${name}\nVisitor email: ${email}\n\nMessage:\n${message}`
-
-    window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-  }
+  useEffect(() => {
+    if (state.success) formRef.current?.reset()
+  }, [state.success])
 
   return (
-    <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>
+    <form ref={formRef} className="grid grid-cols-1 gap-6" action={formAction}>
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="sr-only"
+      />
       <Field className="block">
         <Label htmlFor="contact-name">Full name</Label>
         <Input
@@ -66,9 +67,12 @@ const ContactForm = () => {
         />
       </Field>
 
+      {state.error && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-700" role="alert">{state.error}</p>}
+      {state.success && <p className="rounded-xl bg-green-50 p-3 text-sm text-green-700" role="status">Thanks for your enquiry. We&apos;ll get back to you soon.</p>}
+
       <div>
-        <ButtonPrimary type="submit">
-          Send Message
+        <ButtonPrimary type="submit" disabled={isPending}>
+          {isPending ? 'Sending...' : 'Send Message'}
           <HugeiconsIcon icon={SentIcon} size={16} />
         </ButtonPrimary>
       </div>

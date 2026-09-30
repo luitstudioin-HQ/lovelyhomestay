@@ -30,6 +30,23 @@ const users = [
   },
 ]
 
+function isValidImagePath(value: unknown): value is string {
+  if (typeof value !== 'string') return false
+  const source = value.trim()
+  if (source.startsWith('/') && !source.startsWith('//')) return true
+  try {
+    const url = new URL(source)
+    return url.protocol === 'https:' || url.protocol === 'http:'
+  } catch {
+    return false
+  }
+}
+
+function isValidImageSource(value: unknown): value is string | StaticImageData {
+  if (isValidImagePath(value)) return true
+  return typeof value === 'object' && value !== null && 'src' in value && isValidImagePath(value.src)
+}
+
 interface HeroSection3Props {
   className?: string
   initTab?: ListingType
@@ -63,6 +80,9 @@ const HeroSection3 = ({
   showSearchTabs = true,
   showSocialProof = true,
 }: HeroSection3Props) => {
+  const resolvedHeroImg = isValidImageSource(heroImg) ? heroImg : stayHeroImg
+  const resolvedDesktopHeroImg = isValidImagePath(desktopHeroImg) ? desktopHeroImg : undefined
+
   return (
     <div
       className={clsx(
@@ -72,9 +92,9 @@ const HeroSection3 = ({
     >
       <div className="absolute inset-0 overflow-hidden rounded-3xl">
         <picture>
-          {desktopHeroImg && <source media="(min-width: 1024px)" srcSet={desktopHeroImg} />}
+          {resolvedDesktopHeroImg && <source media="(min-width: 1024px)" srcSet={resolvedDesktopHeroImg} />}
           <Image
-            src={heroImg}
+            src={resolvedHeroImg}
             alt={heroAlt}
             className={clsx('rounded-3xl object-cover', heroImageClassName)}
             fill

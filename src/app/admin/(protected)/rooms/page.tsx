@@ -1,0 +1,2 @@
+import { CrudPage } from '@/components/admin/crud-page'; import { adminList } from '@/lib/admin/data'
+export default async function Rooms() { return <CrudPage title="Rooms" description="Add and maintain the rooms you want guests to see." table="rooms" rows={await adminList('rooms')} returnTo="/admin/rooms" fields={[{key:'name',label:'Room name'},{key:'slug',label:'URL slug'},{key:'description',label:'Description',type:'textarea'},{key:'price',label:'Price'},{key:'featured_image',label:'Featured image URL',type:'url'}]}/> }
