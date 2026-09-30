@@ -1,10 +1,10 @@
 import { requireAdmin } from '@/lib/admin/auth'
 import Link from 'next/link'
-import { HomeIcon, BuildingOffice2Icon, PhotoIcon, QuestionMarkCircleIcon, ChatBubbleLeftRightIcon, Cog6ToothIcon, MagnifyingGlassIcon, DocumentTextIcon } from '@heroicons/react/24/outline'
+import { HomeIcon, BuildingOffice2Icon, PhotoIcon, QuestionMarkCircleIcon, ChatBubbleLeftRightIcon, Cog6ToothIcon, DocumentTextIcon } from '@heroicons/react/24/outline'
 import { logout } from './actions'
 
 const navigation = [
-  ['Dashboard', '/admin', HomeIcon], ['Homepage', '/admin/homepage', BuildingOffice2Icon], ['About', '/admin/about', DocumentTextIcon], ['Contact', '/admin/contact', ChatBubbleLeftRightIcon], ['Rooms', '/admin/rooms', BuildingOffice2Icon], ['Amenities', '/admin/amenities', BuildingOffice2Icon], ['Gallery', '/admin/gallery', PhotoIcon], ['FAQs', '/admin/faqs', QuestionMarkCircleIcon], ['Messages', '/admin/messages', ChatBubbleLeftRightIcon], ['SEO', '/admin/seo', MagnifyingGlassIcon], ['Settings', '/admin/settings', Cog6ToothIcon],
+  ['Dashboard', '/admin', HomeIcon], ['Homepage', '/admin/homepage', BuildingOffice2Icon], ['About', '/admin/about', DocumentTextIcon], ['Contact', '/admin/contact', ChatBubbleLeftRightIcon], ['Rooms', '/admin/rooms', BuildingOffice2Icon], ['Amenities', '/admin/amenities', BuildingOffice2Icon], ['Gallery', '/admin/gallery', PhotoIcon], ['FAQs', '/admin/faqs', QuestionMarkCircleIcon], ['Settings', '/admin/settings', Cog6ToothIcon],
 ] as const
 
 export default async function ProtectedAdminLayout({ children }: { children: React.ReactNode }) {

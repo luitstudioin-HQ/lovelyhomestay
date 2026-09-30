@@ -68,14 +68,6 @@ export async function saveSettings(data: FormData) {
   back(data, 'Settings saved')
 }
 
-export async function updateMessage(data: FormData) {
-  await requireAdmin()
-  const supabase = await createClient()
-  const { error } = await supabase.from('contact_submissions').update({ status: text(data, 'status') }).eq('id', text(data, 'id'))
-  if (error) back(data, error.message)
-  back(data, 'Message updated')
-}
-
 export async function logout() {
   const supabase = await createClient()
   await supabase.auth.signOut()
