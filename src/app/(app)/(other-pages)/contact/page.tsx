@@ -15,6 +15,7 @@ const info = [
 ]
 
 const googleMapsUrl = 'https://maps.app.goo.gl/sPNUnzCjtkEtrJ7x6'
+const phoneNumber = '09476823473'
 
 function safeExternalUrl(value: string | null | undefined) {
   if (!value) return null
@@ -40,7 +41,7 @@ const PageContact = async () => {
   const mapsUrl = settings?.google_maps_url ?? googleMapsUrl
   const contactDetails = [
     { title: 'ADDRESS', value: address, href: null },
-    { title: 'PHONE', value: settings?.phone, href: settings?.phone ? `tel:${settings.phone.replace(/[^+\d]/g, '')}` : null },
+    { title: 'PHONE', value: settings?.phone || phoneNumber, href: `tel:${(settings?.phone || phoneNumber).replace(/[^+\d]/g, '')}` },
     { title: 'EMAIL', value: settings?.email, href: settings?.email ? `mailto:${settings.email}` : null },
     { title: 'WHATSAPP', value: settings?.whatsapp, href: safeExternalUrl(settings?.whatsapp) },
     { title: 'FACEBOOK', value: settings?.facebook_url, href: safeExternalUrl(settings?.facebook_url) },

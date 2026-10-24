@@ -72,8 +72,8 @@ create policy "admins update site media" on storage.objects for update to authen
 create policy "admins delete site media" on storage.objects for delete to authenticated using (bucket_id = 'site-media' and public.is_admin());
 
 -- Seed only verified content from the current public source; safe to re-run.
-insert into public.site_settings (property_name, description, email, address, google_maps_url)
-select 'Lovely Homestay', 'Stay at Lovely Homestay near Six Mile and VIP Road/Panjabari Road in Guwahati, Assam. Enjoy comfortable accommodation with Wi-Fi, parking, kitchen facilities and everyday essentials.', 'nazuneog@gmail.com', 'House No. 3, Jana Path, Bye Lane 17, F.A. Ahmed Nagar, Panjabari Road, Six Mile, Guwahati, Assam 781022', 'https://maps.app.goo.gl/sPNUnzCjtkEtrJ7x6'
+insert into public.site_settings (property_name, description, phone, email, address, google_maps_url)
+select 'Lovely Homestay', 'Stay at Lovely Homestay near Six Mile and VIP Road/Panjabari Road in Guwahati, Assam. Enjoy comfortable accommodation with Wi-Fi, parking, kitchen facilities and everyday essentials.', '09476823473', 'nazuneog@gmail.com', 'House No. 3, Jana Path, Bye Lane 17, F.A. Ahmed Nagar, Panjabari Road, Six Mile, Guwahati, Assam 781022', 'https://maps.app.goo.gl/sPNUnzCjtkEtrJ7x6'
 where not exists (select 1 from public.site_settings);
 insert into public.pages (title, slug, meta_title, meta_description, canonical_url, og_image) values
 ('Lovely Homestay', '/', 'Lovely Homestay | Comfortable Stay in Guwahati, Assam', 'Stay at Lovely Homestay near Six Mile and VIP Road/Panjabari Road in Guwahati, Assam. Enjoy comfortable accommodation with Wi-Fi, parking, kitchen facilities and everyday essentials.', '/', '/images/lovely-homestay/bedroom-main.webp'),
