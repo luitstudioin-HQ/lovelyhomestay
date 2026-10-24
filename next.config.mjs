@@ -2,7 +2,18 @@
 const nextConfig = {
   reactStrictMode: false,
   async redirects() {
-    return [
+    const canonicalRedirects = [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.lovelyhomestay.net' }],
+        destination: 'https://lovelyhomestay.net/:path*',
+        permanent: true,
+        basePath: false,
+      },
+      { source: '/stay', destination: '/', permanent: true },
+    ]
+
+    const retiredTemplateRoutes = [
       '/car/:path*',
       '/experience/:path*',
       '/flight/:path*',
@@ -32,6 +43,8 @@ const nextConfig = {
       '/authors/:path*',
       '/blog/:path*',
     ].map((source) => ({ source, destination: '/', permanent: false }))
+
+    return [...canonicalRedirects, ...retiredTemplateRoutes]
   },
   images: {
     // Pexels URLs bypass the Vercel optimizer entirely; local files still use it.

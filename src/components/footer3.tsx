@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { SITE_PHONE } from '@/lib/site-config'
 
 const googleMapsUrl = 'https://maps.app.goo.gl/sPNUnzCjtkEtrJ7x6'
 
@@ -49,6 +50,9 @@ export default function Footer3() {
               className="mt-3 inline-block text-sm font-medium underline underline-offset-4"
             >
               Open in Google Maps
+            </a>
+            <a href={`tel:${SITE_PHONE}`} className="mt-3 block text-sm font-medium underline underline-offset-4">
+              Call {SITE_PHONE}
             </a>
           </div>
         </div>

@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 export const SITE_URL = 'https://lovelyhomestay.net'
 export const SITE_NAME = 'Lovely Homestay'
 export const SITE_EMAIL = 'nazuneog@gmail.com'
+export const SITE_PHONE = '09476823473'
 export const SITE_DESCRIPTION =
   'Stay at Lovely Homestay near Six Mile and VIP Road/Panjabari Road in Guwahati, Assam. Enjoy comfortable accommodation with Wi-Fi, parking, kitchen facilities and everyday essentials.'
 export const SITE_IMAGE = '/images/lovely-homestay/bedroom-main.webp'

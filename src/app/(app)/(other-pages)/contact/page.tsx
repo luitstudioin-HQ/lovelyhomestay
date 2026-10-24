@@ -2,7 +2,7 @@ import ButtonPrimary from '@/components/button-primary'
 import { Heading } from '@/components/heading'
 import NewsletterSection from '@/components/newsletter-section-1'
 import { Metadata } from 'next'
-import { createPageMetadata } from '@/lib/site-config'
+import { createPageMetadata, SITE_PHONE } from '@/lib/site-config'
 import ContactForm from './contact-form'
 import { getSiteSettings } from '@/lib/cms/settings'
 
@@ -15,7 +15,6 @@ const info = [
 ]
 
 const googleMapsUrl = 'https://maps.app.goo.gl/sPNUnzCjtkEtrJ7x6'
-const phoneNumber = '09476823473'
 
 function safeExternalUrl(value: string | null | undefined) {
   if (!value) return null
@@ -41,7 +40,7 @@ const PageContact = async () => {
   const mapsUrl = settings?.google_maps_url ?? googleMapsUrl
   const contactDetails = [
     { title: 'ADDRESS', value: address, href: null },
-    { title: 'PHONE', value: settings?.phone || phoneNumber, href: `tel:${(settings?.phone || phoneNumber).replace(/[^+\d]/g, '')}` },
+    { title: 'PHONE', value: settings?.phone || SITE_PHONE, href: `tel:${(settings?.phone || SITE_PHONE).replace(/[^+\d]/g, '')}` },
     { title: 'EMAIL', value: settings?.email, href: settings?.email ? `mailto:${settings.email}` : null },
     { title: 'WHATSAPP', value: settings?.whatsapp, href: safeExternalUrl(settings?.whatsapp) },
     { title: 'FACEBOOK', value: settings?.facebook_url, href: safeExternalUrl(settings?.facebook_url) },

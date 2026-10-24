@@ -17,7 +17,7 @@ import { getStayListings } from '@/data/listings'
 import stayHeroImg from '@/images/hero-img-stay.webp'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Metadata } from 'next'
-import { absoluteUrl, createPageMetadata, GOOGLE_MAPS_URL, SITE_DESCRIPTION, SITE_EMAIL } from '@/lib/site-config'
+import { absoluteUrl, createPageMetadata, GOOGLE_MAPS_URL, SITE_DESCRIPTION, SITE_EMAIL, SITE_NAME, SITE_PHONE, SITE_URL } from '@/lib/site-config'
 import { getHomepageSections, getVisibleAmenities, getVisibleFAQs, getVisibleGalleryImages, getPublishedRooms } from '@/lib/cms/content'
 import {
   createLovelyStayPageData,
@@ -38,33 +38,47 @@ export const metadata: Metadata = createPageMetadata({
   path: '/',
 })
 
-const lodgingBusinessJsonLd = {
+const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'LodgingBusiness',
-  name: 'Lovely Homestay',
-  description: SITE_DESCRIPTION,
-  url: absoluteUrl('/'),
-  image: [
-    absoluteUrl('/images/lovely-homestay/bedroom-main.webp'),
-    absoluteUrl('/images/lovely-homestay/living-dining.webp'),
-    absoluteUrl('/images/lovely-homestay/kitchen.webp'),
+  '@graph': [
+    {
+      '@type': 'LodgingBusiness',
+      '@id': `${SITE_URL}/#lodgingbusiness`,
+      name: SITE_NAME,
+      description: SITE_DESCRIPTION,
+      url: absoluteUrl('/'),
+      image: [
+        absoluteUrl('/images/lovely-homestay/bedroom-main.webp'),
+        absoluteUrl('/images/lovely-homestay/living-dining.webp'),
+        absoluteUrl('/images/lovely-homestay/kitchen.webp'),
+      ],
+      email: SITE_EMAIL,
+      telephone: SITE_PHONE,
+      hasMap: GOOGLE_MAPS_URL,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'House No. 3, Jana Path, Bye Lane 17, F.A. Ahmed Nagar, Panjabari Road, Six Mile',
+        addressLocality: 'Guwahati',
+        addressRegion: 'Assam',
+        postalCode: '781022',
+        addressCountry: 'IN',
+      },
+      amenityFeature: [
+        { '@type': 'LocationFeatureSpecification', name: 'Wi-Fi', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Parking', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Kitchen facilities', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Hot water', value: true },
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      description: SITE_DESCRIPTION,
+      inLanguage: 'en-IN',
+    },
   ],
-  email: SITE_EMAIL,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'House No. 3, Jana Path, Bye Lane 17, F.A. Ahmed Nagar, Panjabari Road, Six Mile',
-    addressLocality: 'Guwahati',
-    addressRegion: 'Assam',
-    postalCode: '781022',
-    addressCountry: 'IN',
-  },
-  amenityFeature: [
-    { '@type': 'LocationFeatureSpecification', name: 'Wi-Fi', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Parking', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Kitchen facilities', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Hot water', value: true },
-  ],
-  sameAs: [GOOGLE_MAPS_URL],
 }
 
 type HomepageSectionContent = {
@@ -127,7 +141,7 @@ async function Page() {
     <main className="relative section-space-bottom">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingBusinessJsonLd).replace(/</g, '\\u003c') }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
       />
       <section className="px-4">
         <HeroSection3
